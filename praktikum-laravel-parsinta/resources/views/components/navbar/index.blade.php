@@ -12,7 +12,20 @@
                         <x-navbar.nav-link href="/about">About</x-navbar.nav-link>
                         <x-navbar.nav-link href="/contact">Contact</x-navbar.nav-link>
                         <x-navbar.nav-link href="/gallery">Gallery</x-navbar.nav-link>
-                      
+                        @auth
+                        <x-navbar.nav-link href="{{ route('users.index') }}">Users</x-navbar.nav-link>
+                        @endauth
+                        @auth
+                            <x-navbar.nav-link href="#">
+                                {{ auth()->user()->name }}
+                            </x-navbar.nav-link>
+                            <form action="{{ route('logout') }}" method="post">
+                                @csrf
+                                <x-button type='submit'>Logout</x-button>
+                            </form>
+                        @else
+                            <x-navbar.nav-link href="{{ route('login') }}">Login</x-navbar.nav-link>
+                        @endauth
                     </div>
                 </div>
             </div>
@@ -42,6 +55,8 @@
             <x-navbar.dropdown-link href="/about">About</x-navbar.dropdown-link>
             <x-navbar.dropdown-link href="/contact">Contact</x-navbar.dropdown-link>
             <x-navbar.dropdown-link href="/gallery">Gallery</x-navbar.dropdown-link>
+            <x-navbar.dropdown-link href="{{ route('users.index') }}">Users</x-navbar.dropdown-link>
+            <x-navbar.dropdown-link href="{{ route('login') }}">Login</x-navbar.dropdown-link>
         </div>
     </div>
 </nav>

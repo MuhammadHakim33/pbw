@@ -21,22 +21,21 @@
                     <x-table.th>Name</x-table.th>
                     <x-table.th>Email</x-table.th>
                     <x-table.th>Created At</x-table.th>
+                    <x-table.th></x-table.th>
                 </tr>
             </x-table.thead>
             <x-table.tbody>
                 @foreach ($users as $user )
                 <tr>
+                    <x-table.td>{{$user->id}}</x-table.td>
+                    <x-table.td>{{$user->name}}</x-table.td>
+                    <x-table.td>{{$user->email}}</x-table.td>
+                    <x-table.td>{{$user->created_at->format('d M Y')}}</x-table.td>
                     <x-table.td>
-                        {{$user->id}}
-                    </x-table.td>
-                    <x-table.td>
-                        {{$user->name}}
-                    </x-table.td>
-                    <x-table.td>
-                        {{$user->email}}
-                    </x-table.td>
-                    <x-table.td>
-                        {{$user->created_at->format('d M Y')}}
+                        <div class="flex justify-end gap-x-2">
+                            <a href="/users/{{$user->id}}" class="hover:underline">View</a>
+                            <a href="/users/{{$user->id}}/edit" class="hover:underline">edit</a>
+                        </div>
                     </x-table.td>
                 </tr>
                 @endforeach
