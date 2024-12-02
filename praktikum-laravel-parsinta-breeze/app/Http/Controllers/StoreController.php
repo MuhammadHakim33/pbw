@@ -23,7 +23,15 @@ class StoreController extends Controller
      */
     public function create()
     {
-        return view('stores.create');
+        return view('stores.form', [
+            'store' => new Store(),
+            'page_meta' => [
+                'title' => 'Create store',
+                'description' => 'Create new store for yours.',
+                'method' => 'post',
+                'url' => route('stores.store'),
+            ]
+        ]);
     }
 
     /**
@@ -54,15 +62,28 @@ class StoreController extends Controller
      */
     public function edit(Store $store)
     {
-        //
+        return view('stores.form', [
+            'store' => $store,
+            'page_meta' => [
+                'title' => 'Edit store',
+                'description' => 'Edit store : ' . $store->name,
+                'method' => 'put',
+                'url' => route('stores.update', $store),
+            ]
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Store $store)
+    public function update(StoreRequest $request, Store $store)
     {
-        //
+        $store->update([
+            'name' => $request->name,
+            'description' => $request->description,
+        ]);
+
+        return to_route('stores.index');
     }
 
     /**
