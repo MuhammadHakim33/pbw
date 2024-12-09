@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreRequest;
+use Illuminate\Support\Facades\Gate;
 
 class StoreController extends Controller
 {
@@ -62,6 +63,8 @@ class StoreController extends Controller
      */
     public function edit(Store $store)
     {
+        Gate::authorize('update', $store);
+        
         return view('stores.form', [
             'store' => $store,
             'page_meta' => [
