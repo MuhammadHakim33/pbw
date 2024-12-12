@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers;
+use App\Http\Middleware\HasRoleAdminMiddleware;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', Controllers\HomeController::class)->name('home');
@@ -10,9 +11,14 @@ Route::get('/dashboard', Controllers\DashboardController::class)->middleware(['a
 Route::get('stores', [Controllers\StoreController::class, 'index'])->name('stores.index');
 
 Route::middleware('auth')->group(function () {
+
+    Route::middleware(HasRoleAdminMiddleware::class)->group(function () {
+        Route::get('stores/list', [Controllers\StoreController::class, 'list'])->name('stores.list');
+        Route::put('stores/approve/{store}', [Controllers\StoreController::class, 'approve'])->name('stores.approve');
+    });
     
     Route::middleware('verified')->group(function () {
-        Route::resource('stores', Controllers\StoreController::class)->except('index');
+        Route::resource('stores', Controllers\StoreController::class)->except(['index', 'show']);
     });
 
     Route::get('/profile', [Controllers\ProfileController::class, 'edit'])->name('profile.edit');

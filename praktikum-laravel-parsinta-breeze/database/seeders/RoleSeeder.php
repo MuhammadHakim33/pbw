@@ -18,6 +18,7 @@ class RoleSeeder extends Seeder
             'name' => 'Muhammad Hakim',
             'email' => 'hakim@gmail.com',
             'password' => bcrypt('user12345'),
+            'email_verified_at' => now(),
         ]);
 
         User::factory(10)->create();
