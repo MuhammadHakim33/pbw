@@ -4,7 +4,7 @@
     @slot('title','List Stores')
 
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl leading-tight">
             {{ __('List Stores') }}
         </h2>
     </x-slot>
@@ -26,10 +26,10 @@
                     <form method="post" action="{{ route('stores.approve', $store) }}" class="p-6">
                         @csrf
                         @method('put')
-                        <h2 class="tex-lg font-medium text-gray-900">
+                        <h2 class="tex-lg font-medium text-zinc-900">
                             {{ $store->name }}
                         </h2>
-                        <p class="mt-1 text-sm text-gray-600">
+                        <p class="mt-1 text-sm text-zinc-600">
                             {{ $store->description }}
                         </p>
                         <div class="mt-6 flex justify-end">
