@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use App\Policies\StorePolicy;
+use Illuminate\Pagination\Paginator;
 use App\Models\Store;
 use App\Models\User;
 
