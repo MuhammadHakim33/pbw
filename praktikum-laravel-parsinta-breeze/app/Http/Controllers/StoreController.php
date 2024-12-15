@@ -24,11 +24,22 @@ class StoreController extends Controller
 
     public function approve(Store $store)
     {
-        // dd(StoreStatus::ACTIVE);
         $store->status = StoreStatus::ACTIVE;
         $store->save();
 
         return back();
+    }
+
+    public function mine(Request $request)
+    {
+        $stores = Store::query()
+                ->where('user_id', $request->user()->id)
+                ->latest()
+                ->paginate(8);
+
+        return view('stores.mine', [
+            'stores' => $stores,
+        ]);
     }
 
     /**
