@@ -14,11 +14,13 @@ class StoreController extends Controller
     public function list()
     {
         $stores = Store::query()
+                ->with('user:id,name')
                 ->latest()
                 ->paginate(4);
 
         return view('stores.list', [
             'stores' => $stores,
+            'isAdmin' => auth()->user()->isAdmin(),
         ]);
     }
 
