@@ -10,13 +10,18 @@
     <x-container>
         <div class="grid grid-cols-4 gap-6">
             @foreach ($stores as $store)
-                <x-card>
+                <x-card class="relative">
+                    <a href="{{ route('stores.show', $store) }}" class="absolute inset-0 size-full"></a>
                     <div class="pb-4">
-                        <img src="{{ Storage::url($store->logo) }}" alt="{{ $store->name }}" class="size-16 rounded-lg">
+                        @if($store->logo)
+                            <img src="{{ Storage::url($store->logo) }}" alt="{{ $store->name }}" class="size-16 rounded-lg">
+                        @else
+                            <div class="size-16 rounded-lg bg-zinc-600"></div>
+                        @endif
                     </div>
                     <x-card.header>
                         <x-card.title>{{ $store->name }}</x-card.title>
-                        <x-card.description>{{ $store->description }}</x-card.description>
+                        <x-card.description>{{ str($store->description)->limit() }}</x-card.description>
                         @auth
                             @if($store->user_id == auth()->user()->id)
                                 <a href="{{ route('stores.edit', $store) }}" class="underline text-blue-500">Edit</a>
